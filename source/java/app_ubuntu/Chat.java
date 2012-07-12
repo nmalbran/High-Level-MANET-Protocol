@@ -38,6 +38,11 @@ import hlmp.NetLayer.Interfaces.WifiHandler;
 import hlmp.SubProtocol.Chat.ChatProtocol;
 import hlmp.SubProtocol.Chat.ControlI.ChatHandlerI;
 import hlmp.SubProtocol.Chat.Messages.GroupChatMessage;
+import hlmp.SubProtocol.FileTransfer.FileData;
+import hlmp.SubProtocol.FileTransfer.FileInformationList;
+import hlmp.SubProtocol.FileTransfer.FileTransferProtocol;
+import hlmp.SubProtocol.FileTransfer.ControlI.FileHandlerI;
+import hlmp.SubProtocol.FileTransfer.ControlI.FileListHandlerI;
 import hlmp.SubProtocol.Ping.PingProtocol;
 import hlmp.SubProtocol.Ping.ControlI.PingHandlerI;
 
@@ -45,7 +50,7 @@ import hlmp.SubProtocol.Ping.ControlI.PingHandlerI;
 public class Chat extends JFrame implements ActionListener, PingHandlerI, ChatHandlerI, 
 	NetInformationEventObserverI, ProcessMessageEventObserverI,
 	AddUserEventObserverI, RemoveUserEventObserverI, RefreshLocalUserEventObserverI, RefreshUserEventObserverI,
-	ExceptionEventObserverI, ErrorMessageEventObserverI, WifiHandler {
+	ExceptionEventObserverI, ErrorMessageEventObserverI, WifiHandler, FileHandlerI, FileListHandlerI {
 
 	/**
 	 * 
@@ -76,7 +81,9 @@ public class Chat extends JFrame implements ActionListener, PingHandlerI, ChatHa
 	private Configuration configuration;
 	private PingProtocol pingProtocol;
 	private ChatProtocol chatProtocol;
+	private FileTransferProtocol fileTransferProtocol;
 	private Communication communication;
+	
 	
 	
 	public Chat() throws UnknownHostException{
@@ -139,6 +146,7 @@ public class Chat extends JFrame implements ActionListener, PingHandlerI, ChatHa
 		SubProtocolList subProtocols = new SubProtocolList();
 		this.pingProtocol = new PingProtocol(this);
 		this.chatProtocol = new ChatProtocol(this);
+		this.fileTransferProtocol = new FileTransferProtocol(this, this, this.createFileData());
 		
 		subProtocols.add(hlmp.SubProtocol.Ping.Types.PINGPROTOCOL, pingProtocol);
 		subProtocols.add(hlmp.SubProtocol.Chat.Types.CHATPROTOCOL, chatProtocol);
@@ -153,6 +161,12 @@ public class Chat extends JFrame implements ActionListener, PingHandlerI, ChatHa
 
 		
 	}
+
+
+	private FileData createFileData() {
+		return null;
+	}
+	
 
 
 	@Override
@@ -333,5 +347,94 @@ public class Chat extends JFrame implements ActionListener, PingHandlerI, ChatHa
 			e.printStackTrace();	
 		}
 		return null;
+	}
+
+
+	
+	
+	
+	// HLMP FileTransfer
+	
+	@Override
+	public void addFileList(NetUser netUser, FileInformationList fileList) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void removeFileList(NetUser netUser) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void downloadFileQueued(NetUser netUser, String fileHandlerId, String fileName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void downloadFileOpened(String fileHandlerId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void downloadFileTransfer(String fileHandlerId, int percent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void downloadFileComplete(String fileHandlerId, String path) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void downloadFileFailed(String fileHandlerId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void uploadFileQueued(NetUser netUser, String fileHandlerId, String fileName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void uploadFileOpened(String fileHandlerId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void uploadFileTransfer(String fileHandlerId, int percent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void uploadFileComplete(String fileHandlerId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void uploadFileFailed(String fileHandlerId) {
+		// TODO Auto-generated method stub
+		
 	}
 }
